@@ -53,7 +53,7 @@ class UserFlowBloc extends Bloc<UserFlowEvent, UserFlowState> {
               hasMore = true;
               isMaxPage = false;
             }
-
+            print('new user ${newUsers}');
             users.addAll(newUsers);
 
             emit(UsersSuccessState(data: users, hasMore: hasMore));
