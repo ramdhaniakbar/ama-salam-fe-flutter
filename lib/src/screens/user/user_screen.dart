@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:mobile_app_flutter/constants/color_constants.dart';
+import 'package:mobile_app_flutter/src/screens/user/cubit/user_flow/user_flow_bloc.dart';
+import 'package:mobile_app_flutter/src/screens/user/cubit/user_flow/user_flow_event.dart';
 
 class UserPageScreen extends StatefulWidget {
   const UserPageScreen({super.key});
@@ -11,6 +14,18 @@ class UserPageScreen extends StatefulWidget {
 
 class _UserPageScreenState extends State<UserPageScreen> {
   final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => context.read<UserFlowBloc>().add(LoadUsersEvent(isInitialEvent: true)));
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        context.read<UserFlowBloc>().add(LoadUsersEvent());
+      }
+    });
+  }
 
   Future _refresh() async {}
   @override

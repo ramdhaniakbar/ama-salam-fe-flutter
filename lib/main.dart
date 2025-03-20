@@ -1,8 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobile_app_flutter/src/screens/home/home_screen.dart';
+import 'package:mobile_app_flutter/src/screens/user/cubit/user_flow/user_flow_bloc.dart';
+import 'package:mobile_app_flutter/src/screens/user/cubit/user_flow/user_flow_event.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<UserFlowBloc>(
+          create: (context) => UserFlowBloc(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

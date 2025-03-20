@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lucide_icons/lucide_icons.dart';
 import 'package:mobile_app_flutter/constants/color_constants.dart';
+import 'package:mobile_app_flutter/src/screens/user/cubit/user_flow/user_flow_bloc.dart';
 import 'package:mobile_app_flutter/src/screens/user/user_screen.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -55,7 +57,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => UserPageScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => BlocProvider.value(
+                      value: BlocProvider.of<UserFlowBloc>(context),
+                      child: UserPageScreen(),
+                    ),
+                  ),
                 );
               },
               child: Row(
